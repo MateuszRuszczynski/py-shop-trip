@@ -1,15 +1,14 @@
 import datetime
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from app.customer import Customer
-
 
 class Shop:
     def __init__(self, name: str, location: list, products: dict) -> None:
         self.name = name
         self.location = location
         self.products = products
+
+    @staticmethod
+    def _fmt(value: float) -> str:
+        return str(int(value)) if value % 1 == 0 else str(value)
 
     def calculate_cart_cost(self, product_cart: dict) -> float:
         total_price = 0
@@ -25,21 +24,9 @@ class Shop:
         for product, quantity in cart_item.items():
             price = self.products[product]
             cost = price * quantity
-
-            if cost % 1 == 0:
-                cost_str = str(int(cost))
-            else:
-                cost_str = str(cost)
-
-            print(f"{quantity} {product}s for {cost_str} dollars")
+            print(f"{quantity} {product}s for {self._fmt(cost)} dollars")
 
         total = self.calculate_cart_cost(cart_item)
-
-        if total % 1 == 0:
-            total_str = str(int(total))
-        else:
-            total_str = str(total)
-
-        print(f"Total cost is {total_str} dollars")
+        print(f"Total cost is {self._fmt(total)} dollars")
         print("See you again!")
         print()
