@@ -25,14 +25,17 @@ class Shop:
         for product, quantity in cart_item.items():
             price = self.products[product]
             cost = price * quantity
-            if cost.is_integer():
+
+            if cost % 1 == 0:
                 cost_str = str(int(cost))
             else:
                 cost_str = str(cost)
+
             print(f"{quantity} {product}s for {cost_str} dollars")
 
         total = self.calculate_cart_cost(cart_item)
-        if total.is_integer():
+
+        if total % 1 == 0:
             total_str = str(int(total))
         else:
             total_str = str(total)
